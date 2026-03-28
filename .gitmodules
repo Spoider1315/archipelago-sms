@@ -1,0 +1,3 @@
+[submodule "Archipelago-fuzzer"]
+	path = Archipelago-fuzzer
+	url = https://github.com/Eijebong/Archipelago-fuzzer

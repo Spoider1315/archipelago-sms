@@ -11,8 +11,7 @@ PIANTA_VILLAGE_ANY: SmsRegion = SmsRegion(SmsRegionName.PIANTA_ANY,
         Shine("The Goopy Inferno", [Requirements([[NozzleType.hover]])], in_game_bit=62),
         Shine("Chain Chomp's Bath", [Requirements(ANY_SPLASHER)], in_game_bit=61),
         Shine("100 Coins", [Requirements(ALL_SPLASHER)], hundred=True, in_game_bit=106)],
-    blue_coins=[BlueCoin("Giant M", [Requirements([[NozzleType.spray]])], in_game_bit=430),
-        BlueCoin("River End", in_game_bit=432),
+    blue_coins=[BlueCoin("River End", in_game_bit=432),
         BlueCoin("Grass", in_game_bit=433),
         BlueCoin("Back Tree", [Requirements([[NozzleType.hover]])], in_game_bit=434),
         BlueCoin("River Bridge", in_game_bit=435),
@@ -38,7 +37,8 @@ PIANTA_VILLAGE_EVEN: SmsRegion = SmsRegion(SmsRegionName.PIANTA_EVEN,
 
 PIANTA_VILLAGE_THREE: SmsRegion = SmsRegion(SmsRegionName.PIANTA_THREE,
     requirements=[Requirements(location=f"{SmsRegionName.PIANTA_ANY} - Il Piantissimo's Crazy Climb")],
-    blue_coins=[BlueCoin("Burning Pianta", [Requirements([[NozzleType.spray]])], in_game_bit=442),
+    blue_coins=[BlueCoin("Giant M", [Requirements([[NozzleType.spray]])], in_game_bit=430),
+        BlueCoin("Burning Pianta", [Requirements([[NozzleType.spray]])], in_game_bit=442),
         BlueCoin("FLUDD M", [Requirements([[NozzleType.spray]])], in_game_bit=449)
     ], parent_region=SmsRegionName.PIANTA_ENTRANCE)
 

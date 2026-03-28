@@ -48,8 +48,8 @@ NOKI_BAY_ALL: SmsRegion = SmsRegion(SmsRegionName.NOKI_ALL,
 
 NOKI_BAY_TWO_FOUR_EIGHT: SmsRegion = SmsRegion(SmsRegionName.NOKI_TWO_FOUR_EIGHT,
     requirements=[Requirements(location=f"{SmsRegionName.NOKI_ALL} - Uncork the Waterfall")],
-    blue_coins=[BlueCoin("Right Urn", [Requirements(ANY_SPLASHER)], in_game_bit=488),
-        BlueCoin("Left Urn", [Requirements(ANY_SPLASHER)], in_game_bit=489)
+    blue_coins=[BlueCoin("Right Urn", [Requirements(SPRAY_OR_HOVER)], in_game_bit=488),
+        BlueCoin("Left Urn", [Requirements(SPRAY_OR_HOVER)], in_game_bit=489)
     ], parent_region=SmsRegionName.NOKI_ENTRANCE)
 
 NOKI_BAY_FOUR_EIGHT: SmsRegion = SmsRegion(SmsRegionName.NOKI_FOUR_EIGHT,

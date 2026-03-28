@@ -38,7 +38,7 @@ PINNA_PARK_ONE_THREE_FIVE_EIGHT: SmsRegion = SmsRegion(SmsRegionName.PINNA_ONE_T
 
 PINNA_PARK_TWO: SmsRegion = SmsRegion(SmsRegionName.PINNA_TWO,
     requirements=[Requirements(location=f"{SmsRegionName.PINNA_ONE} - Mecha-Bowser Appears!")],
-    shines=[Shine("The Beach Cannon's Secret", [Requirements(ANY_SPLASHER)], in_game_bit=31),
+    shines=[Shine("The Beach Cannon's Secret", [Requirements(SPRAY_OR_HOVER)], in_game_bit=31),
         Shine("Red Coins in the Cannon", [Requirements([[NozzleType.hover]],
             location=f"{SmsRegionName.PINNA_TWO} - The Beach Cannon's Secret")], in_game_bit=38),
         Shine("Red Coins of the Pirate Ships", [Requirements([[NozzleType.hover]],

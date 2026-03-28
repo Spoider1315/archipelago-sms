@@ -1,26 +1,26 @@
 from .sms_region_helper import *
 
 BIANCO_HILLS_ENTRANCE: SmsRegion = SmsRegion(SmsRegionName.BIANCO_ENTRANCE,
-    requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+    requirements=[Requirements(SPRAY_OR_HOVER), Requirements(skip_forward=True)],
     ticketed="Bianco Hills Ticket", parent_region=SmsRegionName.PLAZA)
 
 BIANCO_HILLS_ONE: SmsRegion = SmsRegion(SmsRegionName.BIANCO_ONE,
-    shines=[Shine("Road to the Big Windmill", [Requirements(ANY_SPLASHER)], in_game_bit=0),
+    shines=[Shine("Road to the Big Windmill", [Requirements(SPRAY_OR_HOVER)], in_game_bit=0),
         Shine("Down with Petey Piranha!", [Requirements(SPRAY_AND_HOVER)], in_game_bit=1),
         Shine("100 Coins", [Requirements(ALL_SPLASHER)], hundred=True, in_game_bit=100)
     ],
     blue_coins=[BlueCoin("Windmill M", [Requirements([[NozzleType.hover]])], in_game_bit=170),
-        BlueCoin("Windmill Pillar", [Requirements(ANY_SPLASHER)], in_game_bit=171),
-        BlueCoin("Towers House M", [Requirements(ANY_SPLASHER)], in_game_bit=188),
+        BlueCoin("Windmill Pillar", [Requirements(SPRAY_OR_HOVER)], in_game_bit=171),
+        BlueCoin("Towers House M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=188),
         BlueCoin("Balcony", [Requirements([[NozzleType.hover]])], in_game_bit=173),
         BlueCoin("Underwater Right", in_game_bit=180),
-        BlueCoin("Wall Side M", [Requirements(ANY_SPLASHER)], in_game_bit=186),
-        BlueCoin("Wall Top M", [Requirements(ANY_SPLASHER)], in_game_bit=187),
+        BlueCoin("Wall Side M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=186),
+        BlueCoin("Wall Top M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=187),
         BlueCoin("Towers House", [Requirements([[NozzleType.hover]])], in_game_bit=172), # Could be done with just Spray, easily so I think?
-        BlueCoin("Pinwheel", [Requirements(ANY_SPLASHER)], in_game_bit=189),
-        BlueCoin("X Behind Wall", [Requirements(ANY_SPLASHER)], in_game_bit=190),
+        BlueCoin("Pinwheel", [Requirements(SPRAY_OR_HOVER)], in_game_bit=189),
+        BlueCoin("X Behind Wall", [Requirements(SPRAY_OR_HOVER)], in_game_bit=190),
         BlueCoin("River End", in_game_bit=191),
-        BlueCoin("X Between Walls", [Requirements(ANY_SPLASHER)], in_game_bit=197),
+        BlueCoin("X Between Walls", [Requirements(SPRAY_OR_HOVER)], in_game_bit=197),
         BlueCoin("Sail Platform", [Requirements([[NozzleType.hover]])], in_game_bit=198),  # Could also be done with just Spray...
     ], parent_region=SmsRegionName.BIANCO_ENTRANCE)
 
@@ -28,8 +28,8 @@ BIANCO_HILLS_THREE: SmsRegion = SmsRegion(SmsRegionName.BIANCO_THREE,
     requirements=[Requirements(location=f"{SmsRegionName.BIANCO_ONE} - Down with Petey Piranha!")],
     shines=[Shine("The Hillside Cave Secret", [Requirements(ROCKET_OR_HOVER)], in_game_bit=2),
         Shine("Red Coins of the Hillside Cave", [Requirements(ROCKET_OR_HOVER)], in_game_bit=8)],
-    blue_coins=[BlueCoin("Treetop", [Requirements(ANY_SPLASHER)], in_game_bit=174),
-        BlueCoin("Tourist", [Requirements(ANY_SPLASHER)], in_game_bit=175),
+    blue_coins=[BlueCoin("Treetop", [Requirements(SPRAY_OR_HOVER)], in_game_bit=174),
+        BlueCoin("Tourist", [Requirements(SPRAY_OR_HOVER)], in_game_bit=175),
         BlueCoin("Windmill Pokey", [Requirements([[NozzleType.hover]])], in_game_bit=184),
         BlueCoin("Cliff", [Requirements(ROCKET_OR_HOVER)], in_game_bit=192),
         BlueCoin("Highest Platform", [Requirements(ROCKET_OR_HOVER)], in_game_bit=199),
@@ -53,7 +53,7 @@ BIANCO_HILLS_FIVE: SmsRegion = SmsRegion(SmsRegionName.BIANCO_FIVE,
 
 BIANCO_HILLS_SIX: SmsRegion = SmsRegion(SmsRegionName.BIANCO_SIX,
     requirements=[Requirements(location=f"{SmsRegionName.BIANCO_FIVE} - Petey Piranha Strikes Back")],
-    shines=[Shine("The Secret of the Dirty Lake", [Requirements(ANY_SPLASHER)], in_game_bit=5),
+    shines=[Shine("The Secret of the Dirty Lake", [Requirements(SPRAY_OR_HOVER)], in_game_bit=5),
         Shine("Red Coins of the Dirty Lake", [Requirements([[NozzleType.hover]])], in_game_bit=9)
     ],
     blue_coins = [BlueCoin("Petey Pillar", [Requirements([[NozzleType.hover]])], in_game_bit=179),
@@ -61,14 +61,14 @@ BIANCO_HILLS_SIX: SmsRegion = SmsRegion(SmsRegionName.BIANCO_SIX,
         BlueCoin("Blue Bird", [Requirements([[NozzleType.spray]])], in_game_bit=182),
         BlueCoin("Chuckster Momma", in_game_bit=193)
     ],
-    nozzle_boxes = [NozzleBox("Turbo Box", [Requirements(ANY_SPLASHER)], in_game_bit=873)],
+    nozzle_boxes = [NozzleBox("Turbo Box", [Requirements(SPRAY_OR_HOVER)], in_game_bit=873)],
     parent_region=SmsRegionName.BIANCO_ENTRANCE)
 
 BIANCO_HILLS_SEVEN: SmsRegion = SmsRegion(SmsRegionName.BIANCO_SEVEN,
     requirements=[Requirements(location=f"{SmsRegionName.BIANCO_SIX} - The Secret of the Dirty Lake")],
     shines=[Shine("Shadow Mario on the Loose", [Requirements([[NozzleType.spray]])], in_game_bit=6)],
-    blue_coins=[BlueCoin("Towers House O", [Requirements(ANY_SPLASHER)], in_game_bit=194),
-        BlueCoin("Balcony House O", [Requirements(ANY_SPLASHER)], in_game_bit=195)
+    blue_coins=[BlueCoin("Towers House O", [Requirements(SPRAY_OR_HOVER)], in_game_bit=194),
+        BlueCoin("Balcony House O", [Requirements(SPRAY_OR_HOVER)], in_game_bit=195)
     ], parent_region=SmsRegionName.BIANCO_ENTRANCE)
 
 BIANCO_HILLS_EIGHT: SmsRegion = SmsRegion(SmsRegionName.BIANCO_EIGHT,

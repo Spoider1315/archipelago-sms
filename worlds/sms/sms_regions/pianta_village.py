@@ -6,10 +6,10 @@ PIANTA_VILLAGE_ENTRANCE: SmsRegion = SmsRegion(SmsRegionName.PIANTA_ENTRANCE,
     ticketed="Pianta Village Ticket", parent_region=SmsRegionName.PLAZA)
 
 PIANTA_VILLAGE_ANY: SmsRegion = SmsRegion(SmsRegionName.PIANTA_ANY,
-    shines=[Shine("Chain Chomplets Unchained", [Requirements(ANY_SPLASHER)], in_game_bit=60),
+    shines=[Shine("Chain Chomplets Unchained", [Requirements(SPRAY_OR_HOVER)], in_game_bit=60),
         Shine("Il Piantissimo's Crazy Climb", [Requirements(location=f"{SmsRegionName.PIANTA_ANY} - Chain Chomplets Unchained")], in_game_bit=65),  # Req. None
         Shine("The Goopy Inferno", [Requirements([[NozzleType.hover]])], in_game_bit=62),
-        Shine("Chain Chomp's Bath", [Requirements(ANY_SPLASHER)], in_game_bit=61),
+        Shine("Chain Chomp's Bath", [Requirements(SPRAY_OR_HOVER)], in_game_bit=61),
         Shine("100 Coins", [Requirements(ALL_SPLASHER)], hundred=True, in_game_bit=106)],
     blue_coins=[BlueCoin("River End", in_game_bit=432),
         BlueCoin("Grass", in_game_bit=433),
@@ -52,7 +52,7 @@ PIANTA_VILLAGE_FIVE_ONLY: SmsRegion = SmsRegion(SmsRegionName.PIANTA_FIVE_ONLY,
 PIANTA_VILLAGE_FIVE_BEYOND: SmsRegion = SmsRegion(SmsRegionName.PIANTA_FIVE_BEYOND,
     requirements=[Requirements([[NozzleType.yoshi]])],
     shines=[Shine("Secret of the Village Underside", [Requirements([[NozzleType.yoshi]])], in_game_bit=64),
-        Shine("Piantas in Need", [Requirements(ANY_SPLASHER)], in_game_bit=63),
+        Shine("Piantas in Need", [Requirements(SPRAY_OR_HOVER)], in_game_bit=63),
         Shine("Shadow Mario Runs Wild", [Requirements([[NozzleType.spray]], location=f"{SmsRegionName.PIANTA_FIVE_BEYOND} - Piantas in Need")], in_game_bit=66),
         Shine("Fluff Festival Coin Hunt", [Requirements(ROCKET_OR_HOVER, location=f"{SmsRegionName.PIANTA_FIVE_BEYOND} - Shadow Mario Runs Wild")], in_game_bit=67),
         Shine("Red Coin Chucksters", [Requirements([[NozzleType.hover]])], in_game_bit=68)

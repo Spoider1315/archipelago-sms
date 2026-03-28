@@ -1,17 +1,17 @@
 from .sms_region_helper import *
 
 RICCO_HARBOR_ENTRANCE: SmsRegion = SmsRegion(SmsRegionName.RICCO_ENTRANCE,
-    requirements=[Requirements(ANY_SPLASHER, shines=3), Requirements(skip_forward=True)],
+    requirements=[Requirements(SPRAY_OR_HOVER, shines=3), Requirements(skip_forward=True)],
     ticketed="Ricco Harbor Ticket", parent_region=SmsRegionName.PLAZA)
 
 RICCO_HARBOR_ONE: SmsRegion = SmsRegion(SmsRegionName.RICCO_ONE,
     shines=[Shine("Ricco 1 Only - Gooper Blooper Breaks Out", [Requirements(SPRAY_OR_HOVER)], in_game_bit=10),
         Shine("100 Coins", [Requirements([[NozzleType.hover]])], hundred=True, in_game_bit=101)],
     blue_coins=[BlueCoin("Tower Wall", [Requirements([[NozzleType.spray]])], in_game_bit=221),
-        BlueCoin("Outer Ship M", [Requirements(ANY_SPLASHER)], in_game_bit=222),
-        BlueCoin("Spawn Building Top M", [Requirements(ANY_SPLASHER)], in_game_bit=223),
+        BlueCoin("Outer Ship M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=222),
+        BlueCoin("Spawn Building Top M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=223),
         BlueCoin("Fruit Machine X", [Requirements([[NozzleType.spray]])], in_game_bit=224),
-        BlueCoin("Rooftop M", [Requirements(ANY_SPLASHER)], in_game_bit=226),
+        BlueCoin("Rooftop M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=226),
         BlueCoin("Far Ledge", [Requirements(ROCKET_OR_HOVER_AND_SPRAY)], in_game_bit=228),
         BlueCoin("Short Beam", [Requirements([[NozzleType.hover]])], in_game_bit=229),
         BlueCoin("Tower Platform", [Requirements([[NozzleType.hover]])], in_game_bit=230),
@@ -23,12 +23,12 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(SmsRegionName.RICCO_ONE,
         BlueCoin("Fountain", in_game_bit=237),
         BlueCoin("Underwater", in_game_bit=238),
         BlueCoin("Tower X", [Requirements([[NozzleType.spray]])], in_game_bit=239),
-        BlueCoin("Fountain M", [Requirements(ANY_SPLASHER)], in_game_bit=240),
+        BlueCoin("Fountain M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=240),
         BlueCoin("Tower Crate", in_game_bit=248),
         BlueCoin("Tower Rocket", [Requirements([[NozzleType.rocket]])], in_game_bit=233),
-        BlueCoin("Ricco 1 Only - Tower Ground M", [Requirements(ANY_SPLASHER)], in_game_bit=227), # Any Splasher considering Yoshi when Yoshi isn't avaialble in said Episode
-        BlueCoin("Ricco 1 Only - Spawn Building Side M", [Requirements(ANY_SPLASHER)], in_game_bit=241),
-        BlueCoin("Ricco 1 Only - Inner Ship M", [Requirements(ANY_SPLASHER)], in_game_bit=246),
+        BlueCoin("Ricco 1 Only - Tower Ground M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=227), # Any Splasher considering Yoshi when Yoshi isn't avaialble in said Episode
+        BlueCoin("Ricco 1 Only - Spawn Building Side M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=241),
+        BlueCoin("Ricco 1 Only - Inner Ship M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=246),
         BlueCoin("Ricco 1 Only - Yellow Submarine", [Requirements([[NozzleType.spray]])], in_game_bit=249)],
     parent_region=SmsRegionName.RICCO_ENTRANCE)
 

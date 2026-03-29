@@ -345,6 +345,14 @@ SPRAY_AND_ANY_FLUDD: list[list[str]] = [
     [NozzleType.spray, NozzleType.rocket],
     [NozzleType.spray, NozzleType.turbo],
 ]
+YOSHI_AND_SPRAY_OR_YOSHI_AND_HOVER: list[list[str]] = [
+    [NozzleType.yoshi, NozzleType.spray],
+    [NozzleType.yoshi, NozzleType.hover],
+]
+TURBO_AND_SPRAY_OR_TURBO_AND_HOVER: list[list[str]] = [
+    [NozzleType.turbo, NozzleType.spray],
+    [NozzleType.turbo, NozzleType.hover],
+]
 SPRAY_OR_HOVER_OR_TURBO_OR_YOSHI: list[list[str]] = [
     [NozzleType.spray],
     [NozzleType.hover],

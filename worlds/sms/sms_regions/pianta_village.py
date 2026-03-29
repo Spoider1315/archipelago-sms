@@ -410,7 +410,7 @@ PIANTA_VILLAGE_EIGHT: SmsRegion = SmsRegion(
         ),
         Shine(
             "Soak the Sun",
-            requirements=[Requirements(SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER)],
+            requirements=[Requirements(SPROCKET_OR_SPROVER)],
             hard=[Requirements(SPRAY_AND_OTHER_FLUDD)],
             in_game_bit=69,
         ),

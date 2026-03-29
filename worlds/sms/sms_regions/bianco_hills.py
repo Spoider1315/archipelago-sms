@@ -408,7 +408,7 @@ BIANCO_HILLS_FIVE: SmsRegion = SmsRegion(
     shines=[
         Shine(
             "Petey Piranha Strikes Back",
-            requirements=[Requirements(SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER)],
+            requirements=[Requirements(SPROCKET_OR_SPROVER)],
             hard=[Requirements([[NozzleType.spray]])],
             in_game_bit=4,
         )

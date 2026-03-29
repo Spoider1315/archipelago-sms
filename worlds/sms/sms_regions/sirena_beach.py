@@ -105,7 +105,7 @@ SIRENA_BEACH_THREE: SmsRegion = SmsRegion(
     shines=[
         Shine(
             "Mysterious Hotel Delfino",
-            requirements=[Requirements(SPRAY_AND_HOVER_AND_YOSHI)],
+            requirements=[Requirements(ALL_SPLASHERS)],
             hard=[Requirements(YOSHI_AND_SPRAY_OR_YOSHI_AND_HOVER)],
             advanced=[Requirements(manual_none=True)],
             in_game_bit=42,

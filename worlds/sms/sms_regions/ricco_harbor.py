@@ -397,7 +397,7 @@ RICCO_HARBOR_EIGHT: SmsRegion = SmsRegion(
         BlueCoin(
             "Fish Basket",
             requirements=[Requirements(ANY_SPLASHER)],
-            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO_OR_YOSHI)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
             advanced=[Requirements(ANY_NOZZLE)],
             in_game_bit=245,
         ),

@@ -20,13 +20,13 @@ PINNA_PARK_ONE: SmsRegion = SmsRegion(
         BlueCoin(
             "Tree Sand Shine",
             requirements=[Requirements(ANY_SPLASHER)],
-            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO_OR_YOSHI)],
+            advanced=[Requirements(ANY_SPLASHER_OR_TURBO)],
             in_game_bit=348,
         ),
         BlueCoin(
             "Cannon Sand Shine",
             requirements=[Requirements(ANY_SPLASHER)],
-            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO_OR_YOSHI)],
+            advanced=[Requirements(ANY_SPLASHER_OR_TURBO)],
             in_game_bit=349,
         ),
         BlueCoin(

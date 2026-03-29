@@ -8,105 +8,236 @@ DELFINO_PLAZA: SmsRegion = SmsRegion(
     ],
     shines=[
         Shine(
-            "Shine Sprite in the Sand", [Requirements(HOVER_OR_YOSHI)], in_game_bit=117
+            "Shine Sprite in the Sand",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=117,
         ),
-        Shine("Clean the West Bell", [Requirements(ANY_SPLASHER)], in_game_bit=96),
-        Shine("Super Slide", [Requirements(ROCKET_OR_HOVER_OR_YOSHI)], in_game_bit=90),
-        Shine("Turbo Dash!", [Requirements([[NozzleType.turbo]])], in_game_bit=116),
-        Shine("Lighthouse Roof", [Requirements([[NozzleType.rocket]])], in_game_bit=93),
         Shine(
-            "Clean the East Bell", [Requirements(ROCKET_AND_SPLASHER)], in_game_bit=97
+            "Clean the West Bell",
+            requirements=[Requirements(HOVER_OR_YOSHI)],
+            hard=[Requirements(ANY_SPLASHER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=96,
         ),
-        Shine("Shine Gate", [Requirements(ROCKET_AND_SPLASHER)], in_game_bit=99),
-        Shine("Lily Pad Ride", [Requirements(ALL_SPLASHER)], in_game_bit=91),
-        Shine("Turbo Track", [Requirements([[NozzleType.turbo]])], in_game_bit=87),
+        Shine(
+            "Super Slide",
+            requirements=[Requirements(ROCKET_OR_HOVER_OR_YOSHI)],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=90,
+        ),
+        Shine(
+            "Turbo Dash!",
+            requirements=[Requirements([[NozzleType.turbo]])],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=116,
+        ),
+        Shine(
+            "Lighthouse Roof",
+            requirements=[Requirements([[NozzleType.rocket]])],
+            advanced=[Requirements(ROCKET_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=93,
+        ),
+        Shine(
+            "Clean the East Bell",
+            requirements=[Requirements(ROCKET_AND_SPLASHER)],
+            hard=[Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI)],
+            advanced=[
+                Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI_OR_TURBO)
+            ],
+            in_game_bit=97,
+        ),
+        Shine(
+            "Shine Gate",
+            requirements=[Requirements(ROCKET_AND_SPLASHER)],
+            hard=[Requirements(ROCKET_AND_ANY_NOZZLE)],
+            advanced=[
+                Requirements(
+                    ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_ROCKET_AND_YOSHI_OR_TURBO
+                )
+            ],
+            in_game_bit=99,
+        ),
+        Shine(
+            "Lily Pad Ride",
+            requirements=[Requirements(ALL_SPLASHERS)],
+            advanced=[Requirements(SPRAY_AND_YOSHI)],
+            tears=[Requirements([[NozzleType.spray]])],
+            in_game_bit=91,
+        ),
+        Shine(
+            "Turbo Track",
+            requirements=[Requirements([[NozzleType.turbo]])],
+            advanced=[Requirements(ROCKET_OR_HOVER)],
+            in_game_bit=87,
+        ),
         Shine(
             "Red Coin Field",
-            [Requirements(SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER)],
+            requirements=[Requirements(SPROCKET_OR_SPROVER)],
+            hard=[Requirements(SPRAY_AND_ANY_FLUDD)],
+            advanced=[Requirements(SPRAY_AND_ANY_NOZZLE)],
+            tears=[Requirements([[NozzleType.hover]])],  # Only turbo may be possible
             in_game_bit=92,
         ),
         Shine(
             "Pachinko Game",
-            [
+            requirements=[
+                Requirements([[NozzleType.hover]], shines=3),
+                Requirements([[NozzleType.hover]], skip_forward=True),
+            ],
+            hard=[
                 Requirements(ROCKET_OR_HOVER, shines=3),
                 Requirements(ROCKET_OR_HOVER, skip_forward=True),
+            ],
+            tears=[
+                Requirements(manual_none=True, shines=3),
+                Requirements(manual_none=True, skip_forward=True),
             ],
             in_game_bit=89,
         ),
         Shine(
             "The Gold Bird",
-            [
-                Requirements(SPROVER_OR_YOSHI, shines=10),
-                Requirements(SPROVER_OR_YOSHI, skip_forward=True),
+            requirements=[
+                Requirements(SPROVER_OR_SPROCKET_OR_YOSHI, shines=10),
+                Requirements(SPROVER_OR_SPROCKET_OR_YOSHI, skip_forward=True),
+            ],
+            advanced=[
+                Requirements(ANY_SPLASHER, shines=10),
+                Requirements(ANY_SPLASHER, skip_forward=True),
+            ],
+            tears=[
+                Requirements(ANY_SPLASHER_OR_TURBO, shines=10),
+                Requirements(ANY_SPLASHER_OR_TURBO, skip_forward=True),
             ],
             in_game_bit=118,
         ),
         Shine(
             "Boxing Clever 1",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=94,
         ),
         Shine(
             "Boxing Clever 2",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=95,
         ),
         Shine(
             "Chuckster",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=98,
         ),
         Shine(
             "100 Coins",
-            [Requirements(ROCKET_OR_HOVER), Requirements(skip_forward=True)],
+            requirements=[
+                Requirements(ROCKET_OR_HOVER),
+                Requirements(skip_forward=True),
+            ],
             hundred=True,
             in_game_bit=107,
         ),
     ],
     blue_coins=[
-        BlueCoin("Turbo Pillar", [Requirements([[NozzleType.turbo]])], in_game_bit=121),
-        BlueCoin("Burning Pianta", [Requirements(ANY_SPLASHER)], in_game_bit=124),
-        BlueCoin("Shine Gate M", [Requirements(ANY_SPLASHER)], in_game_bit=125),
+        BlueCoin(
+            "Turbo Pillar",
+            requirements=[Requirements([[NozzleType.turbo]])],
+            advanced=[Requirements(ROCKET_OR_HOVER_OR_TURBO)],
+            in_game_bit=121,
+        ),
+        BlueCoin(
+            "Burning Pianta",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=124,
+        ),
+        BlueCoin(
+            "Shine Gate M",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=125,
+        ),
         BlueCoin("Tower M", [Requirements(ANY_SPLASHER)], in_game_bit=126),
-        BlueCoin("Chuckster Room M", [Requirements(ANY_SPLASHER)], in_game_bit=127),
+        BlueCoin(
+            "Chuckster Room M",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=127,
+        ),
         BlueCoin("Sea Sewer", in_game_bit=132),
         BlueCoin(
-            "Tower Yellow Goo", [Requirements([[NozzleType.yoshi]])], in_game_bit=133
+            "Tower Yellow Goo",
+            requirements=[Requirements([[NozzleType.yoshi]])],
+            advanced=[Requirements(HOVER_OR_YOSHI)],
+            in_game_bit=133,
         ),
-        BlueCoin("Jail Cell", in_game_bit=134),
+        BlueCoin(
+            "Jail Cell",
+            requirements=[Requirements([[NozzleType.hover]])],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=134,
+        ),
         BlueCoin(
             "Police Station Yellow Goo",
-            [Requirements([[NozzleType.yoshi]])],
+            requirements=[Requirements([[NozzleType.yoshi]])],
+            tears=[Requirements(ROCKET_OR_HOVER_OR_YOSHI)],
             in_game_bit=135,
         ),
         BlueCoin("Shine Gate Sewer", in_game_bit=136),
         BlueCoin("Canal Sewer", in_game_bit=137),
         BlueCoin(
             "Blue Bird Near Sirena Pipe",
-            [Requirements(SPRAY_OR_YOSHI)],
+            requirements=[Requirements(SPRAY_OR_YOSHI)],
+            advanced=[Requirements(ANY_SPLASHER)],
+            tears=[Requirements(ANY_SPLASHER_OR_TURBO)],
             in_game_bit=138,
         ),
         BlueCoin(
-            "Blue Bird Near Crate Guy", [Requirements(SPRAY_OR_YOSHI)], in_game_bit=139
+            "Blue Bird Near Crate Guy",
+            requirements=[Requirements(SPRAY_OR_YOSHI)],
+            advanced=[Requirements(ANY_SPLASHER)],
+            tears=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=139,
         ),
-        BlueCoin("Statue X", [Requirements(ANY_SPLASHER)], in_game_bit=122),
-        BlueCoin("Bell Tower X", [Requirements(ANY_SPLASHER)], in_game_bit=123),
+        BlueCoin(
+            "Statue X",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=122,
+        ),
+        BlueCoin(
+            "Bell Tower X",
+            requirements=[Requirements(ANY_SPLASHER)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO)],
+            in_game_bit=123,
+        ),
         BlueCoin(
             "Pineapple Basket",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=128,
         ),
         BlueCoin(
             "Durian Basket",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=129,
         ),
         BlueCoin(
             "Banana Basket",
-            [Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
             in_game_bit=130,
         ),
-        BlueCoin("Coconut Basket", [Requirements(ANY_SPLASHER)], in_game_bit=131),
+        BlueCoin(
+            "Coconut Basket",
+            requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
+            hard=[Requirements(ANY_SPLASHER_OR_TURBO), Requirements(skip_forward=True)],
+            in_game_bit=131,
+        ),
     ],
     # NozzleBox("Shadow Mario Yoshi Egg Chase", 523911, Requirements([NozzleType.spray], location="Pinna Park - The Wilted Sunflowers")),
     # NozzleBox("Shadow Mario Rocket Nozzle Chase", 523870, Requirements([NozzleType.splasher, NozzleType.yoshi], shines=30)),

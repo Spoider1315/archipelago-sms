@@ -2,6 +2,7 @@ from enum import StrEnum
 from typing import Optional, NamedTuple, TYPE_CHECKING
 
 from BaseClasses import Location
+from worlds.sms.options import Difficulty
 
 if TYPE_CHECKING:
     from worlds.sms import SmsWorld
@@ -13,15 +14,31 @@ class SmsLocation(Location):
     sms_region: "SmsRegion"
     loc_reqs: list["Requirements"]
     corona: bool
+    requirements_logic_any: bool
 
-    def __init__(self, world: "SmsWorld", name: str, parent_region: "SmsRegion", reqs: list["Requirements"]):
+    def __init__(
+        self,
+        world: "SmsWorld",
+        name: str,
+        parent_region: "SmsRegion",
+        reqs: list["Requirements"],
+        requirements_logic_any: bool = False,
+    ):
         self.address = world.location_name_to_id[name]
         self.loc_reqs = reqs
         self.sms_region = parent_region
         self.corona = False if not reqs else any(loc_req.corona for loc_req in reqs)
+        self.requirements_logic_any = requirements_logic_any
         if parent_region.requirements:
-            self.corona = self.corona or any(reg_loc.corona for reg_loc in parent_region.requirements)
-        super(SmsLocation, self).__init__(world.player, name, address=self.address, parent=world.get_region(parent_region.name))
+            self.corona = self.corona or any(
+                reg_loc.corona for reg_loc in parent_region.requirements
+            )
+        super(SmsLocation, self).__init__(
+            world.player,
+            name,
+            address=self.address,
+            parent=world.get_region(parent_region.name),
+        )
 
 
 class SmsRegionName(StrEnum):
@@ -97,7 +114,10 @@ class Requirements(NamedTuple):
     blue_coins: Optional[int] = None
     location: Optional[str] = None
     corona: bool = False  # is corona access needed (configurable)
-    skip_forward: bool = None # Only in logic if tickets / fluddless are true
+    skip_forward: bool = None  # Only in logic if tickets / fluddless are true
+    manual_none: bool = (
+        False  # Only matters for higher difficulties. Prevents fallback requirements.
+    )
 
 
 class Shine(NamedTuple):
@@ -106,7 +126,7 @@ class Shine(NamedTuple):
     hard: Optional[list[Requirements]] | None = None
     advanced: Optional[list[Requirements]] | None = None
     tears: Optional[list[Requirements]] | None = None
-    hundred: bool = False # 100 coin Shines
+    hundred: bool = False  # 100 coin Shines
     in_game_bit: int = None
 
 
@@ -145,20 +165,66 @@ class SmsRegion(NamedTuple):
     parent_region: str = None
 
 
+def get_correct_requirements(
+    item: Shine | BlueCoin | NozzleBox, difficulty: Difficulty
+):
+    match difficulty.value:
+        case 0:
+            return item.requirements
+        case 1:
+            return (
+                item.hard
+                if (item.hard != None and item.hard.count != 0)
+                else item.requirements
+            )
+        case 2:
+            return (
+                item.advanced
+                if (item.advanced != None and item.advanced.count != 0)
+                else (
+                    item.hard
+                    if (item.hard != None and item.hard.count != 0)
+                    else item.requirements
+                )
+            )
+        case 3:
+            return (
+                item.tears
+                if (item.tears != None and item.tears.count != 0)
+                else (
+                    item.advanced
+                    if (item.advanced != None and item.advanced.count != 0)
+                    else (
+                        item.hard
+                        if (item.hard != None and item.hard.count != 0)
+                        else item.requirements
+                    )
+                )
+            )
+        case _:
+            return item.requirements
+
+
 # Common combinations of Nozzle Types
 ANY_SPLASHER: list[list[str]] = [
     [NozzleType.spray],
     [NozzleType.hover],
-    [NozzleType.yoshi]
+    [NozzleType.yoshi],
 ]
 SPROVER_OR_YOSHI: list[list[str]] = [
     [NozzleType.spray, NozzleType.hover],
-    [NozzleType.yoshi]
+    [NozzleType.yoshi],
 ]
-HOVORSHI: list[list[str]] = [
+SPROCKET_OR_HOVER: list[list[str]] = [
+    [NozzleType.spray, NozzleType.rocket],
     [NozzleType.hover],
-    [NozzleType.yoshi]
 ]
+SPROCKET_OR_HOVER_OR_TURBO: list[list[str]] = [
+    [NozzleType.spray, NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+]
+HOVER_OR_YOSHI: list[list[str]] = [[NozzleType.hover], [NozzleType.yoshi]]
 ROCKET_OR_HOVER_OR_YOSHI: list[list[str]] = [
     [NozzleType.hover],
     [NozzleType.rocket],
@@ -167,63 +233,118 @@ ROCKET_OR_HOVER_OR_YOSHI: list[list[str]] = [
 ROCKET_AND_SPLASHER: list[list[str]] = [
     [NozzleType.rocket, NozzleType.spray],
     [NozzleType.rocket, NozzleType.hover],
-    [NozzleType.rocket, NozzleType.yoshi]
+    [NozzleType.rocket, NozzleType.yoshi],
 ]
-ALL_SPLASHER: list[list[str]] = [
-    [NozzleType.spray, NozzleType.hover, NozzleType.yoshi]
-]
-ROCKET_AND_SPRAY_AND_HOVER: list[list[str]]=[
+ALL_SPLASHER: list[list[str]] = [[NozzleType.spray, NozzleType.hover, NozzleType.yoshi]]
+ROCKET_AND_SPRAY_AND_HOVER: list[list[str]] = [
     [NozzleType.rocket, NozzleType.spray, NozzleType.hover]
 ]
-ROCKET_OR_HOVER_AND_SPRAY: list[list[str]] = [
+SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER: list[list[str]] = [
     [NozzleType.rocket, NozzleType.spray],
     [NozzleType.hover, NozzleType.spray],
 ]
-ROCKET_OR_HOVER: list[list[str]] = [
-    [NozzleType.hover],
-    [NozzleType.rocket]
+SPRAY_AND_OTHER_FLUDD: list[list[str]] = [
+    [NozzleType.rocket, NozzleType.spray],
+    [NozzleType.hover, NozzleType.spray],
+    [NozzleType.turbo, NozzleType.spray],
 ]
-ROCKET_AND_SPRAY: list[list[str]] = [
-    [NozzleType.spray, NozzleType.rocket]
-]
-SPRAY_OR_YOSHI: list[list[str]] = [
-    [NozzleType.spray],
-    [NozzleType.yoshi]
-]
-TURSPRAY: list[list[str]] = [
-    [NozzleType.spray, NozzleType.turbo]
-]
-YOSHI_AND_HOVER: list[list[str]] = [
-    [NozzleType.yoshi, NozzleType.hover]
-]
-SPRAY_AND_HOVER: list[list[str]] = [
-    [NozzleType.spray, NozzleType.hover]
-]
-SPRAY_OR_HOVER: list[list[str]] = [
-    [NozzleType.spray],
-    [NozzleType.rocket]
-]
-SPRAY_AND_ROCKET_OR_HOVER: list[list[str]] = [
+ROCKET_OR_HOVER: list[list[str]] = [[NozzleType.hover], [NozzleType.rocket]]
+ROCKET_OR_TURBO: list[list[str]] = [[NozzleType.turbo], [NozzleType.rocket]]
+ROCKET_AND_SPRAY: list[list[str]] = [[NozzleType.spray, NozzleType.rocket]]
+SPRAY_OR_YOSHI: list[list[str]] = [[NozzleType.spray], [NozzleType.yoshi]]
+TURSPRAY: list[list[str]] = [[NozzleType.spray, NozzleType.turbo]]
+YOSHI_AND_HOVER: list[list[str]] = [[NozzleType.yoshi, NozzleType.hover]]
+SPRAY_AND_HOVER: list[list[str]] = [[NozzleType.spray, NozzleType.hover]]
+SPRAY_OR_HOVER: list[list[str]] = [[NozzleType.spray], [NozzleType.hover]]
+SPROCKET_OR_HOVER: list[list[str]] = [
     [NozzleType.spray, NozzleType.rocket],
-    [NozzleType.hover]
+    [NozzleType.hover],
+]
+SPROCKET_OR_HOVER_OR_TURBO: list[list[str]] = [
+    [NozzleType.spray, NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+]
+SPROCKET_OR_HOVER_OR_YOSHI: list[list[str]] = [
+    [NozzleType.spray, NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.yoshi],
+]
+SPROCKET_OR_HOVER_OR_TURBO_OR_YOSHI: list[list[str]] = [
+    [NozzleType.spray, NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+    [NozzleType.yoshi],
 ]
 SPRAY_AND_HOVER_OR_ROCKET: list[list[str]] = [
     [NozzleType.spray, NozzleType.hover],
-    [NozzleType.rocket]
+    [NozzleType.rocket],
 ]
-TURBO_OR_HOVER: list[list[str]] = [
-    [NozzleType.hover],
-    [NozzleType.turbo]
-]
+TURBO_OR_HOVER: list[list[str]] = [[NozzleType.hover], [NozzleType.turbo]]
 TURBO_OR_SPLASHER: list[list[str]] = [
     [NozzleType.spray, NozzleType.hover, NozzleType.yoshi],
-    [NozzleType.turbo]
+    [NozzleType.turbo],
 ]
 ROCKET_OR_SPLASHER: list[list[str]] = [
     [NozzleType.spray, NozzleType.hover, NozzleType.yoshi],
-    [NozzleType.rocket]
+    [NozzleType.rocket],
 ]
 YOSHI_AND_SPRAY_OR_YOSHI_AND_HOVER: list[list[str]] = [
     [NozzleType.yoshi, NozzleType.spray],
-    [NozzleType.yoshi, NozzleType.hover]
+    [NozzleType.yoshi, NozzleType.hover],
+]
+SPRAY_OR_HOVER_OR_TURBO: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+]
+SPRAY_OR_HOVER_OR_ROCKET: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.rocket],
+]
+ANY_FLUDD: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.rocket],
+    [NozzleType.turbo],
+]
+ROCKET_OR_HOVER_OR_TURBO: list[list[str]] = [
+    [NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+]
+YOSHI_OR_ROCKET: list[list[str]] = [[NozzleType.rocket], [NozzleType.yoshi]]
+SPRAY_AND_HOVER_AND_YOSHI: list[list[str]] = [
+    [NozzleType.spray, NozzleType.hover, NozzleType.yoshi]
+]
+HOVER_AND_YOSHI: list[list[str]] = [[NozzleType.hover, NozzleType.yoshi]]
+YOSHI_AND_SPRAY_OR_HOVER: list[list[str]] = [
+    [NozzleType.spray, NozzleType.yoshi],
+    [NozzleType.hover, NozzleType.yoshi],
+]
+SPRAY_OR_HOVER_OR_TURBO_OR_YOSHI: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+    [NozzleType.yoshi],
+]
+SPRAY_OR_HOVER_OR_ROCKET_OR_YOSHI: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.rocket],
+    [NozzleType.yoshi],
+]
+ROCKET_OR_HOVER_OR_TURBO_OR_YOSHI: list[list[str]] = [
+    [NozzleType.rocket],
+    [NozzleType.hover],
+    [NozzleType.turbo],
+    [NozzleType.yoshi],
+]
+ANY_NOZZLE: list[list[str]] = [
+    [NozzleType.spray],
+    [NozzleType.hover],
+    [NozzleType.rocket],
+    [NozzleType.turbo],
+    [NozzleType.yoshi],
 ]

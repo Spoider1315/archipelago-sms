@@ -1,27 +1,82 @@
 from typing import TYPE_CHECKING
 
-from ..generic.Rules import add_rule
+from worlds.generic.Rules import add_rule
 from BaseClasses import Entrance, Region
 
-from .sms_regions.sms_region_helper import SmsLocation, SmsRegionName, SmsRegion
+from .sms_regions.sms_region_helper import (
+    SmsLocation,
+    SmsRegionName,
+    SmsRegion,
+    get_correct_requirements,
+)
 from .sms_regions.delfino_plaza import DELFINO_PLAZA, BOATHOUSE_TRADERS
 from .sms_regions.delfino_airstrip import DELFINO_AIRSTRIP
 from .sms_regions.corona_mountain import CORONA_MOUNTAIN
-from .sms_regions.bianco_hills import (BIANCO_HILLS_ENTRANCE, BIANCO_HILLS_ONE, BIANCO_HILLS_THREE, BIANCO_HILLS_FOUR,
-    BIANCO_HILLS_FIVE, BIANCO_HILLS_SIX, BIANCO_HILLS_SEVEN, BIANCO_HILLS_EIGHT)
-from .sms_regions.gelato_beach import (GELATO_BEACH_ENTRANCE, GELATO_BEACH_ONE, GELATO_BEACH_ONE_TWO_FOUR, GELATO_BEACH_SIX,
-    GELATO_NOT_THREE, GELATO_BEACH_FIVE_EIGHT, GELATO_BEACH_FOUR_ONLY, GELATO_BEACH_TWO_FOUR_THRU_EIGHT)
-from .sms_regions.noki_bay import NOKI_BAY_ENTRANCE, NOKI_BAY_ALL, NOKI_BAY_FOUR_EIGHT, NOKI_BAY_SIX_EIGHT, NOKI_BAY_TWO_FOUR_EIGHT
-from .sms_regions.pinna_park import PINNA_PARK_ENTRANCE, PINNA_PARK_ONE, PINNA_PARK_ONE_THREE_FIVE_EIGHT, \
-    PINNA_PARK_FIVE_EIGHT, PINNA_PARK_SIX, PINNA_PARK_TWO
-from .sms_regions.ricco_harbor import RICCO_HARBOR_ENTRANCE, RICCO_HARBOR_ONE, RICCO_HARBOR_EIGHT, \
-    RICCO_HARBOR_FOUR_SEVEN, RICCO_HARBOR_THREE, RICCO_HARBOR_TWO
-from .sms_regions.sirena_beach import SIRENA_BEACH_ENTRANCE, SIRENA_BEACH_ONE_SIX, SIRENA_BEACH_TWO_EIGHT, \
-    SIRENA_BEACH_FOUR_EIGHT, SIRENA_BEACH_THREE_EIGHT, SIRENA_BEACH_SEVEN_EIGHT, SIRENA_BEACH_FOUR_FIVE, \
-    SIRENA_BEACH_FIVE_ONLY, SIRENA_BEACH_SIX_ONLY
-from .sms_regions.pianta_village import PIANTA_VILLAGE_EVEN, PIANTA_VILLAGE_ODD, PIANTA_VILLAGE_ENTRANCE, \
-    PIANTA_VILLAGE_EIGHT, PIANTA_VILLAGE_SIX, PIANTA_VILLAGE_THREE, PIANTA_VILLAGE_FIVE_ONLY, \
-    PIANTA_VILLAGE_FIVE_BEYOND, PIANTA_VILLAGE_ANY
+from .sms_regions.bianco_hills import (
+    BIANCO_HILLS_ENTRANCE,
+    BIANCO_HILLS_ONE,
+    BIANCO_HILLS_THREE,
+    BIANCO_HILLS_FOUR,
+    BIANCO_HILLS_FIVE,
+    BIANCO_HILLS_SIX,
+    BIANCO_HILLS_SEVEN,
+    BIANCO_HILLS_EIGHT,
+)
+from .sms_regions.gelato_beach import (
+    GELATO_BEACH_ENTRANCE,
+    GELATO_BEACH_ONE,
+    GELATO_BEACH_ONE_TWO_FOUR,
+    GELATO_BEACH_SIX,
+    GELATO_NOT_THREE,
+    GELATO_BEACH_FIVE_EIGHT,
+    GELATO_BEACH_FOUR_ONLY,
+    GELATO_BEACH_TWO_FOUR_THRU_EIGHT,
+)
+from .sms_regions.noki_bay import (
+    NOKI_BAY_ENTRANCE,
+    NOKI_BAY_ALL,
+    NOKI_BAY_FOUR_EIGHT,
+    NOKI_BAY_SIX_EIGHT,
+    NOKI_BAY_TWO_FOUR_EIGHT,
+)
+from .sms_regions.pinna_park import (
+    PINNA_PARK_ENTRANCE,
+    PINNA_PARK_ONE,
+    PINNA_PARK_ONE_THREE_FIVE_EIGHT,
+    PINNA_PARK_FIVE_EIGHT,
+    PINNA_PARK_SIX,
+    PINNA_PARK_TWO,
+)
+from .sms_regions.ricco_harbor import (
+    RICCO_HARBOR_ENTRANCE,
+    RICCO_HARBOR_ONE,
+    RICCO_HARBOR_EIGHT,
+    RICCO_HARBOR_FOUR_SEVEN,
+    RICCO_HARBOR_THREE,
+    RICCO_HARBOR_TWO,
+)
+from .sms_regions.sirena_beach import (
+    SIRENA_BEACH_ENTRANCE,
+    SIRENA_BEACH_ONE_SIX,
+    SIRENA_BEACH_TWO_EIGHT,
+    SIRENA_BEACH_FOUR_EIGHT,
+    SIRENA_BEACH_THREE_EIGHT,
+    SIRENA_BEACH_SEVEN_EIGHT,
+    SIRENA_BEACH_FOUR_FIVE,
+    SIRENA_BEACH_FIVE_ONLY,
+    SIRENA_BEACH_SIX_ONLY,
+)
+from .sms_regions.pianta_village import (
+    PIANTA_VILLAGE_EVEN,
+    PIANTA_VILLAGE_ODD,
+    PIANTA_VILLAGE_ENTRANCE,
+    PIANTA_VILLAGE_EIGHT,
+    PIANTA_VILLAGE_SIX,
+    PIANTA_VILLAGE_THREE,
+    PIANTA_VILLAGE_FIVE_ONLY,
+    PIANTA_VILLAGE_FIVE_BEYOND,
+    PIANTA_VILLAGE_ANY,
+)
 
 if TYPE_CHECKING:
     from . import SmsWorld
@@ -31,11 +86,11 @@ def get_location_name_to_id():
     dict_locs: dict[str, int] = {}
     for sms_reg in ALL_REGIONS.values():
         for shine_loc in sms_reg.shines:
-            dict_locs.update({f"{sms_reg.name} - {shine_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {shine_loc.name}": len(dict_locs) + 1})
         for blue_loc in sms_reg.blue_coins:
-            dict_locs.update({f"{sms_reg.name} - {blue_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {blue_loc.name}": len(dict_locs) + 1})
         for nozz_loc in sms_reg.nozzle_boxes:
-            dict_locs.update({f"{sms_reg.name} - {nozz_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {nozz_loc.name}": len(dict_locs) + 1})
     return dict_locs
 
 
@@ -95,12 +150,12 @@ ALL_REGIONS: dict[str, SmsRegion] = {
     SmsRegionName.PIANTA_FIVE_BEYOND: PIANTA_VILLAGE_FIVE_BEYOND,
     SmsRegionName.PIANTA_SIX: PIANTA_VILLAGE_SIX,
     SmsRegionName.PIANTA_EIGHT: PIANTA_VILLAGE_EIGHT,
-    SmsRegionName.CORONA: CORONA_MOUNTAIN
+    SmsRegionName.CORONA: CORONA_MOUNTAIN,
 }
 
 
 def create_region(region: SmsRegion, world: "SmsWorld"):
-    curr_region = Region(str(region.name), world.player, world.multiworld)
+    curr_region = Region(region.name, world.player, world.multiworld)
     world.multiworld.regions.append(curr_region)
 
     if region.name == "Menu":
@@ -111,16 +166,28 @@ def create_region(region: SmsRegion, world: "SmsWorld"):
     new_entrance.requirements = region.requirements
 
     # If the user is fludd-less or access is in ticket mode, change the PLAZA entrance requirements to nothing.
-    if region.name == SmsRegionName.PLAZA and (world.options.starting_nozzle.value == 2 or
-        world.options.level_access.value == 1):
+    if region.name == SmsRegionName.PLAZA and (
+        world.options.starting_nozzle.value == 2
+        or world.options.level_access.value == 1
+    ):
         new_entrance.requirements = []
 
     # Require that the player has the ticket required for the region when ticket mode is enabled
     if world.options.level_access.value == 1 and region.ticketed:
         curr_region.ticket_str = region.ticketed
-        add_rule(new_entrance, (lambda state, ticket_str=region.ticketed: state.has(ticket_str, world.player)))
+        add_rule(
+            new_entrance,
+            (
+                lambda state, ticket_str=region.ticketed: state.has(
+                    ticket_str, world.player
+                )
+            ),
+        )
 
-    if (world.options.trade_shine_maximum.value == 0 or world.options.blue_coin_sanity.value == 0) and region.trade:
+    if (
+        world.options.trade_shine_maximum.value == 0
+        or world.options.blue_coin_sanity.value == 0
+    ) and region.trade:
         return curr_region
 
     for shine in region.shines:
@@ -129,29 +196,56 @@ def create_region(region: SmsRegion, world: "SmsWorld"):
             continue
         elif region.name == SmsRegionName.AIRSTRIP:
             # If User chose to be fludd-less, don't create the Dilemma shine.
-            if world.options.starting_nozzle.value == 2 and shine.name == "Delfino Airstrip Dilemma":
+            if (
+                world.options.starting_nozzle.value == 2
+                and shine.name == "Delfino Airstrip Dilemma"
+            ):
                 continue
-        elif (region.trade and world.options.blue_coin_sanity.value > 0 and
-            len([reg_loc for reg_loc in curr_region.get_locations()]) >= world.options.trade_shine_maximum.value):
+        elif (
+            region.trade
+            and world.options.blue_coin_sanity.value > 0
+            and len([reg_loc for reg_loc in curr_region.get_locations()])
+            >= world.options.trade_shine_maximum.value
+        ):
             continue
 
-        shine_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {shine.name}", region, shine.requirements)
+        shine_loc: SmsLocation = SmsLocation(
+            world,
+            f"{curr_region.name} - {shine.name}",
+            region,
+            get_correct_requirements(shine, world.options.difficulty),
+            True,
+        )
         if region.trade:
             shine_loc.trades_req = True
         curr_region.locations.append(shine_loc)
 
     if world.options.blue_coin_sanity.value > 0:
         for blue_coin in region.blue_coins:
-            blue_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {blue_coin.name}", region, blue_coin.requirements)
+            blue_loc: SmsLocation = SmsLocation(
+                world,
+                f"{curr_region.name} - {blue_coin.name}",
+                region,
+                get_correct_requirements(blue_coin, world.options.difficulty),
+                True,
+            )
             if world.options.blue_coin_sanity.value != 1:
-                curr_region.add_event(blue_loc.name, "Blue Coin",
-                    (lambda state, temp_loc=blue_loc: temp_loc.access_rule(state)))
+                curr_region.add_event(
+                    blue_loc.name,
+                    "Blue Coin",
+                    (lambda state, temp_loc=blue_loc: temp_loc.access_rule(state)),
+                )
             else:
                 blue_loc.blue = True
                 curr_region.locations.append(blue_loc)
 
     for nozzle_box in region.nozzle_boxes:
-        nozzle_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {nozzle_box.name}", region, nozzle_box.requirements)
+        nozzle_loc: SmsLocation = SmsLocation(
+            world,
+            f"{curr_region.name} - {nozzle_box.name}",
+            region,
+            get_correct_requirements(nozzle_box, world.options.difficulty),
+        )
         curr_region.locations.append(nozzle_loc)
 
     return curr_region
@@ -162,4 +256,6 @@ def create_regions(world: "SmsWorld"):
         create_region(region_data, world)
 
     corona_region: Region = world.get_region(SmsRegionName.CORONA)
-    corona_region.add_event(f"{SmsRegionName.CORONA} - Father and Son Shine!", "Victory")
+    corona_region.add_event(
+        f"{SmsRegionName.CORONA} - Father and Son Shine!", "Victory"
+    )

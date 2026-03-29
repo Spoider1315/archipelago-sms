@@ -364,7 +364,9 @@ PINNA_PARK_TWO: SmsRegion = SmsRegion(
         ),
         Shine(
             "100 Coins",
-            [Requirements([[NozzleType.spray]])],
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
             hundred=True,
             in_game_bit=103,
         ),

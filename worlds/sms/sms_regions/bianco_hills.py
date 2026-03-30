@@ -29,7 +29,7 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
                     location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
                 ),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
                 ),
             ],

@@ -96,6 +96,14 @@ class NozzleBoxes(Toggle):
     display_name = "Enable Nozzle Boxes"
 
 
+class AllShinesSelectable(Toggle):
+    """
+    Enables you to select every shine without having to complete each in order.
+    You will still need access to each hub (Gelato Beach, Noki Bay, Pinna Park, etc.)
+    """
+    display_name = "All Shines Selectable"
+
+
 @dataclass
 class SmsOptions(PerGameCommonOptions):
     level_access: LevelAccess
@@ -103,6 +111,7 @@ class SmsOptions(PerGameCommonOptions):
     corona_mountain_shines: CoronaMountainShines
     extra_shines: ExtraShines
     nozzle_boxes: NozzleBoxes
+    all_shines_selectable: AllShinesSelectable
     blue_coin_sanity: BlueCoinSanity
     blue_coin_maximum: BlueCoinMaximum
     trade_shine_maximum: TradeShineMaximum

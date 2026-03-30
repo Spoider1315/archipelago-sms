@@ -20,6 +20,25 @@ def interpret_requirements(
     if requirement_set is None or len(requirement_set) < 1:
         return
 
+    # If all shines are selectable, remove all the entrance requirements related to location access.
+    # If a location has no reqs after that is removed, then it is considered empty and should be removed from the list.
+    if isinstance(spot, Entrance) and world.options.all_shines_selectable.value:
+        reqs_copy: list[Requirements] = []
+        for copy_req in requirement_set:
+            if not copy_req.location:
+                reqs_copy.append(copy_req)
+                continue
+
+            temp_req = Requirements(copy_req.nozzles, copy_req.shines, copy_req.blue_coins, None,
+                copy_req.corona, copy_req.skip_forward, copy_req.manual_none)
+            if not temp_req.is_empty():
+                reqs_copy.append(copy_req)
+        requirement_set = reqs_copy
+
+        # Secondary check after requirements were updated.
+        if requirement_set is None or len(requirement_set) < 1:
+            return
+
     # Otherwise, if a region/location DOES have items required, make the section(s) return list of logic.
     skip_forward_locs: bool = (
         world.options.starting_nozzle.value == 2

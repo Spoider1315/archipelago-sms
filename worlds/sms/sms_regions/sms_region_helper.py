@@ -131,6 +131,10 @@ class Requirements(NamedTuple):
         False  # Only matters for higher difficulties. Prevents fallback requirements.
     )
 
+    def is_empty(self):
+        return True if (not self.nozzles and not self.shines and not self.blue_coins and
+            not self.location and not self.corona and not self.skip_forward and not self.manual_none) else False
+
 
 class Shine(NamedTuple):
     name: str

@@ -35,7 +35,10 @@ DELFINO_PLAZA: SmsRegion = SmsRegion(
         Shine(
             "Lighthouse Roof",
             requirements=[Requirements([[NozzleType.rocket]])],
-            advanced=[Requirements(ROCKET_OR_TURBO)],
+            advanced=[
+                Requirements([[NozzleType.rocket]]),
+                Requirements(SPRAY_AND_TURBO),
+            ],
             tears=[Requirements(manual_none=True)],
             in_game_bit=93,
         ),
@@ -44,7 +47,8 @@ DELFINO_PLAZA: SmsRegion = SmsRegion(
             requirements=[Requirements(ROCKET_AND_SPLASHER)],
             hard=[Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI)],
             advanced=[
-                Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI_OR_TURBO)
+                Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI),
+                Requirements(SPRAY_AND_TURBO),
             ],
             in_game_bit=97,
         ),
@@ -53,9 +57,8 @@ DELFINO_PLAZA: SmsRegion = SmsRegion(
             requirements=[Requirements(ROCKET_AND_SPLASHER)],
             hard=[Requirements(ROCKET_AND_ANY_NOZZLE)],
             advanced=[
-                Requirements(
-                    ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_ROCKET_AND_YOSHI_OR_TURBO
-                )
+                Requirements(ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_ROCKET_AND_YOSHI),
+                Requirements(SPRAY_AND_TURBO),
             ],
             in_game_bit=99,
         ),
@@ -63,7 +66,7 @@ DELFINO_PLAZA: SmsRegion = SmsRegion(
             "Lily Pad Ride",
             requirements=[Requirements(ALL_SPLASHERS)],
             advanced=[Requirements(SPRAY_AND_YOSHI)],
-            tears=[Requirements([[NozzleType.spray]])],
+            tears=[Requirements()],
             in_game_bit=91,
         ),
         Shine(

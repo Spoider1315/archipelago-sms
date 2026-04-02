@@ -132,8 +132,19 @@ class Requirements(NamedTuple):
     )
 
     def is_empty(self):
-        return True if (not self.nozzles and not self.shines and not self.blue_coins and
-            not self.location and not self.corona and not self.skip_forward and not self.manual_none) else False
+        return (
+            True
+            if (
+                not self.nozzles
+                and not self.shines
+                and not self.blue_coins
+                and not self.location
+                and not self.corona
+                and not self.skip_forward
+                and not self.manual_none
+            )
+            else False
+        )
 
 
 class Shine(NamedTuple):
@@ -367,10 +378,9 @@ ROCKET_AND_ANY_NOZZLE: list[list[str]] = [
     [NozzleType.rocket, NozzleType.turbo],
     [NozzleType.rocket, NozzleType.yoshi],
 ]
-ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_ROCKET_AND_YOSHI_OR_TURBO: list[list[str]] = [
+ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_ROCKET_AND_YOSHI: list[list[str]] = [
     [NozzleType.rocket, NozzleType.hover],
     [NozzleType.rocket, NozzleType.spray],
-    [NozzleType.turbo],
     [NozzleType.rocket, NozzleType.yoshi],
 ]
 TURBO_AND_SPRAY_OR_TURBO_AND_HOVER: list[list[str]] = [
@@ -405,5 +415,8 @@ ANY_NOZZLE: list[list[str]] = [
 SPRAY_AND_OTHER_FLUDD: list[list[str]] = [
     [NozzleType.spray, NozzleType.hover],
     [NozzleType.spray, NozzleType.rocket],
+    [NozzleType.spray, NozzleType.turbo],
+]
+SPRAY_AND_TURBO: list[list[str]] = [
     [NozzleType.spray, NozzleType.turbo],
 ]

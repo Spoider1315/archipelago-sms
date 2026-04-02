@@ -201,7 +201,7 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
             "Shack",
             requirements=[Requirements([[NozzleType.rocket]])],
             hard=[Requirements(ROCKET_OR_HOVER)],
-            advanced=[Requirements(SPRAY_OR_HOVER_OR_ROCKET)],
+            advanced=[Requirements(ANY_FLUDD)],
             in_game_bit=294,
         ),
         BlueCoin(

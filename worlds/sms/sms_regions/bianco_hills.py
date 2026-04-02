@@ -21,14 +21,6 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
             "100 Coins",
             requirements=[
                 Requirements(
-                    [[NozzleType.hover]],
-                    location=f"{SmsRegionName.BIANCO_ONE} - Road to the Big Windmill",
-                ),
-                Requirements(
-                    SPRAY_OR_HOVER,
-                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
-                ),
-                Requirements(
                     [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
                 ),
@@ -127,7 +119,7 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
                 ),
             ],
             hard=[
-                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(ANY_FLUDD),
                 Requirements(
                     [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
@@ -292,10 +284,6 @@ BIANCO_HILLS_THREE: SmsRegion = SmsRegion(
                 Requirements(
                     ROCKET_OR_HOVER,
                     location=f"{SmsRegionName.BIANCO_THREE} - The Hillside Cave Secret",
-                ),
-                Requirements(
-                    ROCKET_OR_HOVER_OR_YOSHI,
-                    location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
                 ),
             ],
             advanced=[
